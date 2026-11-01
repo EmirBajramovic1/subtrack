@@ -5,7 +5,7 @@ export const subscriptions: Subscription[] = [
     id: "1",
     user_id: "demo-user",
     service_name: "GitHub Pro",
-    price: 47.01,
+    price: 47.00,
     billing_cycle: "yearly",
     next_renewal_date: "2027-01-12",
     accent_color: "#1F2937",

@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { Subscription } from "../types";
 
 type SubscriptionCardProps = {
@@ -35,11 +35,6 @@ export default function SubscriptionCard({
         <Text style={styles.cycle}>
           {subscription.billing_cycle === "monthly" ? "Monthly" : "Yearly"}
         </Text>
-
-        <Image
-          source={require("../../assets/images/icon.png")}
-          style={styles.smallImage}
-        />
       </View>
     </Pressable>
   );
