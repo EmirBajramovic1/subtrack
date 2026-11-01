@@ -1,56 +1,55 @@
-# Welcome to your Expo app 👋
+# SubTrack
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+SubTrack is a mobile application that helps users manage their recurring subscriptions and track monthly and yearly expenses. Users can add subscriptions, monitor upcoming renewal dates, and view their total subscription costs in one place.
 
-## Get started
+## Technologies
 
-1. Install dependencies
+- React Native
+- Expo SDK 57
+- TypeScript
+- Expo Router
+- Supabase (planned)
 
-   ```bash
-   npm install
-   ```
+## Run the Project
 
-2. Start the app
+1. Clone the repository.
+2. Open the project folder.
+3. Install dependencies:
 
-   ```bash
-   npx expo start
-   ```
+   `npm install`
 
-In the output, you'll find options to open the app in a
+4. Start the Expo development server:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   `npx expo start`
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+5. Open the application using Expo Go on Android.
 
-## Get a fresh project
+## Features
 
-When you're ready, run:
+### Completed in Lab 4
 
-```bash
-npm run reset-project
-```
+- [x] Expo project setup
+- [x] TypeScript subscription type
+- [x] Five mock subscriptions
+- [x] Reusable SubscriptionCard component
+- [x] Scrollable subscription list
+- [x] Reusable SubscriptionDetails component
+- [x] Press feedback and console logging
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Planned Features
 
-### Other setup steps
+- [ ] Subscription details screen
+- [ ] Add, edit, and delete subscriptions
+- [ ] Monthly and yearly billing cycles
+- [ ] Monthly and yearly spending overview
+- [ ] Upcoming renewal dates
+- [ ] Service accent colors in the subscription form
+- [ ] User registration and login
+- [ ] Supabase database integration
+- [ ] Local preferences
+- [ ] Haptic feedback when saving subscriptions
+- [ ] Android APK build
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Development Status
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is being developed for the IT 3003 Cross-Platform Development semester assignment at International Burch University.
