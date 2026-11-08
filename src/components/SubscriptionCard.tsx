@@ -26,7 +26,6 @@ export default function SubscriptionCard({
   const billingCycle =
     subscription.billing_cycle === "monthly" ? "Monthly" : "Yearly";
 
-  // Choose the logo based on the service name.
   const serviceName = subscription.service_name.trim().toLowerCase();
 
   let logo = null;
