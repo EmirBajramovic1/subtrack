@@ -28,27 +28,35 @@ SubTrack is a mobile application that helps users manage their recurring subscri
 
 ### Completed in Lab 4
 
-- [x] Expo project setup
-- [x] TypeScript subscription type
-- [x] Five mock subscriptions
-- [x] Reusable SubscriptionCard component
-- [x] Scrollable subscription list
-- [x] Reusable SubscriptionDetails component
-- [x] Press feedback and console logging
+- Expo project setup
+- TypeScript subscription type
+- Five mock subscriptions
+- Reusable SubscriptionCard component
+- Scrollable subscription list
+- Reusable SubscriptionDetails component
+- Press feedback and console logging
 
-### Planned Features
+### Completed in Lab 5
 
-- [ ] Subscription details screen
-- [ ] Add, edit, and delete subscriptions
-- [ ] Monthly and yearly billing cycles
-- [ ] Monthly and yearly spending overview
-- [ ] Upcoming renewal dates
-- [ ] Service accent colors in the subscription form
-- [ ] User registration and login
-- [ ] Supabase database integration
-- [ ] Local preferences
-- [ ] Haptic feedback when saving subscriptions
-- [ ] Android APK build
+- Shared light and dark theme
+- Automatic theme switching based on device settings
+- Safe-area support
+- Responsive subscription cards
+- Custom subscription logos with first-letter fallback
+- Monthly and yearly billing badges
+- Dynamic spending summary
+- Responsive layout for phones and tablets
+- Themed Subscription Details component
+
+## Screenshots
+
+### Light Mode
+
+![SubTrack Light Mode](docs/home-light.png)
+
+### Dark Mode
+
+![SubTrack Dark Mode](docs/home-dark.png)
 
 ## Development Status
 
