@@ -30,19 +30,26 @@ export default function SubscriptionDetails({
 
       <View style={styles.card}>
         <Text style={styles.detail}>
-          Billing cycle: {subscription.billing_cycle}
+          Billing cycle:{" "}
+          <Text style={{ fontWeight: "bold" }}>
+            {subscription.billing_cycle}
+          </Text>
         </Text>
 
         <View style={styles.divider} />
 
         <Text style={styles.detail}>
-          Next renewal: {subscription.next_renewal_date}
+          Next renewal:{" "}
+          <Text style={{ fontWeight: "bold" }}>
+            {subscription.next_renewal_date}
+          </Text>
         </Text>
 
         <View style={styles.divider} />
 
         <Text style={styles.detail}>
-          Yearly equivalent: {yearlyCost.toFixed(2)} KM
+          Yearly equivalent:{" "}
+          <Text style={{ fontWeight: "bold" }}>{yearlyCost.toFixed(2)} KM</Text>
         </Text>
       </View>
     </ScrollView>
