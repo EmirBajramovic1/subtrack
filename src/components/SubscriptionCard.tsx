@@ -1,39 +1,102 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import type { Subscription } from "../types";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
+
+import { FontSize, Radius, Spacing } from "@/constants/theme";
+import { useTheme } from "@/hooks/use-theme";
+import type { Subscription } from "@/types";
 
 type SubscriptionCardProps = {
   subscription: Subscription;
+  style?: StyleProp<ViewStyle>;
 };
 
 export default function SubscriptionCard({
   subscription,
+  style,
 }: SubscriptionCardProps) {
+  const theme = useTheme();
+
+  const billingCycle =
+    subscription.billing_cycle === "monthly" ? "Monthly" : "Yearly";
+
+  // Choose the logo based on the service name.
+  const serviceName = subscription.service_name.trim().toLowerCase();
+
+  let logo = null;
+
+  if (serviceName === "github pro") {
+    logo = require("../../assets/images/github.png");
+  } else if (serviceName === "icloud+ storage") {
+    logo = require("../../assets/images/icloud.png");
+  } else if (serviceName === "spotify") {
+    logo = require("../../assets/images/spotify.png");
+  } else if (serviceName === "netflix") {
+    logo = require("../../assets/images/netflix.png");
+  } else if (serviceName === "youtube premium") {
+    logo = require("../../assets/images/youtube.png");
+  }
+
   return (
     <Pressable
       onPress={() => console.log("Open", subscription.id)}
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.card,
+        {
+          backgroundColor: theme.card,
+          borderColor: theme.border,
+        },
+        pressed && styles.pressed,
+        style,
+      ]}
     >
       <View
-        style={[styles.icon, { backgroundColor: subscription.accent_color }]}
+        style={[styles.visual, { backgroundColor: subscription.accent_color }]}
       >
-        <Text style={styles.iconText}>
-          {subscription.service_name.charAt(0).toUpperCase()}
+        {logo ? (
+          <Image
+            source={logo}
+            style={styles.visualImage}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text style={[styles.initial, { color: theme.onService }]}>
+            {subscription.service_name.charAt(0).toUpperCase()}
+          </Text>
+        )}
+
+        <Text
+          style={[
+            styles.badge,
+            {
+              backgroundColor: theme.primary,
+              color: theme.onPrimary,
+            },
+          ]}
+        >
+          {billingCycle}
         </Text>
       </View>
 
-      <View style={styles.info}>
-        <Text style={styles.name}>{subscription.service_name}</Text>
+      <View style={styles.body}>
+        <View style={styles.row}>
+          <Text style={[styles.name, { color: theme.text }]}>
+            {subscription.service_name}
+          </Text>
 
-        <Text style={styles.details}>
+          <Text style={[styles.price, { color: theme.text }]}>
+            {subscription.price.toFixed(2)} KM
+          </Text>
+        </View>
+
+        <Text style={[styles.details, { color: theme.muted }]}>
           Next renewal: {subscription.next_renewal_date}
-        </Text>
-      </View>
-
-      <View style={styles.priceContainer}>
-        <Text style={styles.price}>{subscription.price.toFixed(2)} KM</Text>
-
-        <Text style={styles.cycle}>
-          {subscription.billing_cycle === "monthly" ? "Monthly" : "Yearly"}
         </Text>
       </View>
     </Pressable>
@@ -42,59 +105,68 @@ export default function SubscriptionCard({
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 12,
-    gap: 12,
     borderWidth: 1,
-    borderColor: "#E2E8F0",
+    borderRadius: Radius.md,
+    overflow: "hidden",
   },
   pressed: {
     opacity: 0.6,
   },
-  icon: {
-    width: 44,
-    height: 44,
-    borderRadius: 10,
-    justifyContent: "center",
+  visual: {
+    width: "100%",
+    aspectRatio: 16 / 9,
     alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   },
-  iconText: {
-    color: "#FFFFFF",
-    fontSize: 20,
+  logoContainer: {
+    width: 110,
+    height: 110,
+    borderRadius: Radius.md,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  visualImage: {
+    width: 110,
+    height: 110,
+  },
+  initial: {
+    fontSize: 48,
     fontWeight: "bold",
   },
-  info: {
-    flex: 1,
+  badge: {
+    position: "absolute",
+    top: Spacing.sm,
+    right: Spacing.sm,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    borderRadius: Radius.pill,
+    fontSize: FontSize.small,
+    fontWeight: "bold",
+    overflow: "hidden",
+  },
+  body: {
+    padding: Spacing.md,
+    gap: Spacing.sm,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: Spacing.sm,
   },
   name: {
-    fontSize: 15,
+    flex: 1,
+    fontSize: FontSize.body,
     fontWeight: "bold",
-    color: "#0F172A",
-  },
-  details: {
-    fontSize: 11,
-    color: "#64748B",
-    marginTop: 4,
-  },
-  priceContainer: {
-    alignItems: "flex-end",
-    gap: 4,
   },
   price: {
-    fontSize: 13,
+    fontSize: FontSize.body,
     fontWeight: "bold",
-    color: "#0F172A",
+    flexShrink: 1,
+    textAlign: "right",
   },
-  cycle: {
-    fontSize: 11,
-    color: "#64748B",
-  },
-  smallImage: {
-    width: 14,
-    height: 14,
-    opacity: 0.4,
+  details: {
+    fontSize: FontSize.small,
   },
 });
