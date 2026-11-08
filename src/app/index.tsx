@@ -1,17 +1,33 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import SubscriptionCard from "@/components/SubscriptionCard";
+import { Spacing } from "@/constants/theme";
 import { subscriptions } from "@/data/subscriptions";
+import { useTheme } from "@/hooks/use-theme";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      style={{ backgroundColor: theme.background }}
+      contentContainerStyle={[
+        styles.container,
+        {
+          paddingTop: Spacing.md + insets.top,
+          paddingBottom: Spacing.md + insets.bottom,
+        },
+      ]}
+    >
       <View style={styles.header}>
-        <Text style={styles.title}>SubTrack</Text>
-        <Text style={styles.subtitle}>Manage your subscriptions</Text>
+        <Text style={[styles.title, { color: theme.text }]}>SubTrack</Text>
+        <Text style={[styles.subtitle, { color: theme.muted }]}>
+          Manage your subscriptions
+        </Text>
       </View>
 
-      <Text style={styles.sectionTitle}>
+      <Text style={[styles.sectionTitle, { color: theme.text }]}>
         My Subscriptions ({subscriptions.length})
       </Text>
 
@@ -26,7 +42,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     gap: 12,
-    backgroundColor: "#F8FAFC",
     flexGrow: 1,
   },
   header: {
@@ -35,17 +50,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#0F172A",
   },
   subtitle: {
     fontSize: 14,
-    color: "#64748B",
     marginTop: 4,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#0F172A",
     marginBottom: 4,
   },
 });
