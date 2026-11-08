@@ -95,7 +95,7 @@ export default function SubscriptionCard({
         </View>
 
         <Text style={[styles.details, { color: theme.muted }]}>
-          Next renewal: {subscription.next_renewal_date}
+          Next renewal: {subscription.next_renewal_date.split("-").reverse().join(".")}
         </Text>
       </View>
     </Pressable>

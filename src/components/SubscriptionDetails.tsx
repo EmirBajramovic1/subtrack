@@ -1,5 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { FontSize, Radius, Spacing } from "@/constants/theme";
+import { useTheme } from "@/hooks/use-theme";
 import type { Subscription } from "@/types";
 
 type SubscriptionDetailsProps = {
@@ -9,48 +13,116 @@ type SubscriptionDetailsProps = {
 export default function SubscriptionDetails({
   subscription,
 }: SubscriptionDetailsProps) {
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
   const yearlyCost =
     subscription.billing_cycle === "monthly"
       ? subscription.price * 12
       : subscription.price;
 
+  const serviceName = subscription.service_name.trim().toLowerCase();
+
+  let logo = null;
+
+  if (serviceName === "github pro") {
+    logo = require("../../assets/images/github.png");
+  } else if (serviceName === "icloud+ storage") {
+    logo = require("../../assets/images/icloud.png");
+  } else if (serviceName === "spotify") {
+    logo = require("../../assets/images/spotify.png");
+  } else if (serviceName === "netflix") {
+    logo = require("../../assets/images/netflix.png");
+  } else if (serviceName === "youtube premium") {
+    logo = require("../../assets/images/youtube.png");
+  }
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View
-        style={[styles.icon, { backgroundColor: subscription.accent_color }]}
-      >
-        <Text style={styles.iconText}>
-          {subscription.service_name.charAt(0).toUpperCase()}
+    <ScrollView
+      style={{ backgroundColor: theme.background }}
+      contentContainerStyle={[
+        styles.container,
+        {
+          paddingTop: Spacing.md + insets.top,
+          paddingBottom: Spacing.md + insets.bottom,
+        },
+      ]}
+    >
+      <View style={styles.content}>
+        <View
+          style={[
+            styles.visual,
+            { backgroundColor: subscription.accent_color },
+          ]}
+        >
+          {logo ? (
+            <Image
+              source={logo}
+              style={styles.visualImage}
+              resizeMode="contain"
+            />
+          ) : (
+            <Text style={[styles.initial, { color: theme.onService }]}>
+              {subscription.service_name.charAt(0).toUpperCase()}
+            </Text>
+          )}
+        </View>
+
+        <Text style={[styles.name, { color: theme.text }]}>
+          {subscription.service_name}
         </Text>
-      </View>
 
-      <Text style={styles.name}>{subscription.service_name}</Text>
-      <Text style={styles.price}>{subscription.price.toFixed(2)} KM</Text>
-      <Text style={styles.cycle}>Billed {subscription.billing_cycle}</Text>
-
-      <View style={styles.card}>
-        <Text style={styles.detail}>
-          Billing cycle:{" "}
-          <Text style={{ fontWeight: "bold" }}>
-            {subscription.billing_cycle}
-          </Text>
+        <Text style={[styles.price, { color: theme.text }]}>
+          {subscription.price.toFixed(2)} KM
         </Text>
 
-        <View style={styles.divider} />
-
-        <Text style={styles.detail}>
-          Next renewal:{" "}
-          <Text style={{ fontWeight: "bold" }}>
-            {subscription.next_renewal_date}
-          </Text>
+        <Text style={[styles.cycle, { color: theme.muted }]}>
+          Billed {subscription.billing_cycle}
         </Text>
 
-        <View style={styles.divider} />
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: theme.card,
+              borderColor: theme.border,
+            },
+          ]}
+        >
+          <View style={styles.detailRow}>
+            <Text style={[styles.label, { color: theme.muted }]}>
+              Billing cycle:
+            </Text>
 
-        <Text style={styles.detail}>
-          Yearly equivalent:{" "}
-          <Text style={{ fontWeight: "bold" }}>{yearlyCost.toFixed(2)} KM</Text>
-        </Text>
+            <Text style={[styles.value, { color: theme.text }]}>
+              {subscription.billing_cycle}
+            </Text>
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+          <View style={styles.detailRow}>
+            <Text style={[styles.label, { color: theme.muted }]}>
+              Next renewal:
+            </Text>
+
+            <Text style={[styles.value, { color: theme.text }]}>
+              {subscription.next_renewal_date.split("-").reverse().join(".")}
+            </Text>
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+          <View style={styles.detailRow}>
+            <Text style={[styles.label, { color: theme.muted }]}>
+              Yearly equivalent:
+            </Text>
+
+            <Text style={[styles.value, { color: theme.text }]}>
+              {yearlyCost.toFixed(2)} KM
+            </Text>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
@@ -58,57 +130,71 @@ export default function SubscriptionDetails({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    alignItems: "center",
-    backgroundColor: "#F8FAFC",
     flexGrow: 1,
-    gap: 12,
+    paddingHorizontal: Spacing.md,
   },
-  icon: {
-    width: 72,
-    height: 72,
+  content: {
+    width: "100%",
+    maxWidth: 600,
+    alignSelf: "center",
+    alignItems: "center",
+    gap: Spacing.md,
+  },
+  visual: {
+    width: 80,
+    height: 80,
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    overflow: "hidden",
   },
-  iconText: {
-    fontSize: 32,
+  visualImage: {
+    width: 70,
+    height: 70,
+  },
+  initial: {
+    fontSize: 48,
     fontWeight: "bold",
-    color: "#FFFFFF",
   },
   name: {
-    fontSize: 24,
+    fontSize: FontSize.hero,
     fontWeight: "bold",
-    color: "#0F172A",
+    textAlign: "center",
   },
   price: {
-    fontSize: 30,
+    fontSize: FontSize.hero,
     fontWeight: "bold",
-    color: "#0F172A",
   },
   cycle: {
-    fontSize: 14,
-    color: "#64748B",
+    fontSize: FontSize.body,
   },
   card: {
     width: "100%",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 20,
     borderWidth: 1,
-    borderColor: "#E2E8F0",
+    borderRadius: Radius.md,
+    padding: Spacing.md,
   },
-  detail: {
-    fontSize: 14,
-    color: "#0F172A",
-    padding: 10,
+  detailRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: Spacing.sm,
+    paddingVertical: Spacing.sm,
+  },
+  label: {
+    flex: 1,
+    fontSize: FontSize.body,
+  },
+  value: {
+    flex: 1,
+    flexShrink: 1,
+    fontSize: FontSize.body,
+    fontWeight: "bold",
+    textAlign: "right",
   },
   divider: {
     height: 1,
-    backgroundColor: "#E2E8F0",
-    marginVertical: 16,
     width: "100%",
+    marginVertical: Spacing.sm,
   },
 });

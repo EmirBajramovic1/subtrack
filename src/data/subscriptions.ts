@@ -51,4 +51,14 @@ export const subscriptions: Subscription[] = [
     accent_color: "#EF4444",
     created_at: "2026-10-25T12:00:00Z",
   },
+  {
+    id: "6",
+    user_id: "demo-user",
+    service_name: "Gym Membership",
+    price: 59.99,
+    billing_cycle: "monthly",
+    next_renewal_date: "2026-12-01",
+    accent_color: "#5e44efff",
+    created_at: "2026-10-25T12:00:00Z",
+  },
 ];
